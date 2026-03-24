@@ -1,28 +1,19 @@
 <template>
-  <div>
-    <div class="baseBeverage" :style="baseStyle"></div>
-
-    <select v-model="selectedBaseId">
-      <option v-for="b in bases" :key="b.id" :value="b.id">
-        {{ b.name }}
-      </option>
-    </select>
-  </div>
+  <div class="baseBeverage" :style="baseStyle"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { bases } from "../stores/beverage";
 
-// store selected base by id (more reliable than storing objects)
-const selectedBaseId = ref(bases.value[0].id);
+const props = defineProps<{
+  base: string;
+}>();
 
-// find the selected base object
 const selectedBase = computed(() =>
-  bases.value.find(b => b.id === selectedBaseId.value)
+  bases.value.find(b => b.id === props.base)
 );
 
-// dynamic style
 const baseStyle = computed(() => ({
   backgroundColor: selectedBase.value?.color || "transparent"
 }));
@@ -31,12 +22,11 @@ const baseStyle = computed(() => ({
 <style scoped>
 .baseBeverage {
   position: relative;
-  width: 150px;
-  height: 200px;
+  width: 100%;
+  height: 100%;
   bottom: 0;
-  border: 2px solid black;
-  border-radius: 10px;
   animation: pour-tea 2s;
   z-index: 300;
+  /* // border-radius: 0.05em 0.05em 2.2em 2.2em; */
 }
 </style>

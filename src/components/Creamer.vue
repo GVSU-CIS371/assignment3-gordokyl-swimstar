@@ -1,11 +1,6 @@
 <template>
-  <div class="froth" :style="frothStyle">
-    <div
-      v-for="n in 5"
-      :key="n"
-      class="foam"
-      :style="foamStyle"
-    ></div>
+  <div class="froth" :style="creamerStyle">
+    <div v-for="n in 5" :key="n" class="foam" ></div>
   </div>
 </template>
 
@@ -21,13 +16,8 @@ const selectedCreamer = computed(() =>
   creamers.value.find(c => c.id === props.creamer)
 );
 
-const frothStyle = computed(() => ({
-  backgroundColor: selectedCreamer.value?.color || "transparent",
-  opacity: selectedCreamer.value?.name === "No Cream" ? 0 : 1
-}));
-
-const foamStyle = computed(() => ({
-  backgroundColor: selectedCreamer.value?.color || "#e4e0d2"
+const creamerStyle = computed(() => ({
+  backgroundColor: selectedCreamer.value?.color || "transparent"
 }));
 </script>
 
